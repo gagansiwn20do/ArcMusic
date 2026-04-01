@@ -65,7 +65,7 @@ func handleResume(m *telegram.NewMessage, cplay bool) error {
 			"error": err,
 		}))
 	} else {
-		title := html.EscapeString(utils.ShortTitle(t.Title, 25))
+		title := utils.EscapeHTML(utils.ShortTitle(t.Title, 25))
 		pos := formatDuration(r.Position())
 		total := formatDuration(t.Duration)
 		mention := utils.MentionHTML(m.Sender)
