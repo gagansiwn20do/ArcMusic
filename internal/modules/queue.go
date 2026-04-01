@@ -183,7 +183,7 @@ func handleQueue(m *tg.NewMessage, cplay bool) error {
 		&b,
 		"🎧 <a href=\"%s\">%s</a> — %s [%s]\n\n",
 		t.URL,
-		html.EscapeString(utils.ShortTitle(t.Title, 35)),
+		utils.EscapeHTML(utils.ShortTitle(t.Title, 35)),
 		t.Requester,
 		formatDuration(t.Duration),
 	)
@@ -214,7 +214,7 @@ func handleQueue(m *tg.NewMessage, cplay bool) error {
 				"%d. 🎵 <a href=\"%s\">%s</a> — %s [%s]\n",
 				i+1,
 				track.URL,
-				html.EscapeString(utils.ShortTitle(track.Title, 35)),
+				utils.EscapeHTML(utils.ShortTitle(track.Title, 35)),
 				track.Requester,
 				formatDuration(track.Duration),
 			)
