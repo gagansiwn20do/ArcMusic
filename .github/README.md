@@ -17,7 +17,7 @@
     <img src="https://img.shields.io/badge/Version-v1.0.0-FF9800?style=for-the-badge&logo=semver&labelColor=000000&logoColor=white" alt="Version">
   </a>
   <a href="../LICENSE">
-    <img src="https://img.shields.io/badge/License-GPLv1-FF3860?style=for-the-badge&logo=gnu&labelColor=000000&logoColor=white" alt="License: GPLv3">
+    <img src="https://img.shields.io/badge/License-GPLv3-FF3860?style=for-the-badge&logo=gnu&labelColor=000000&logoColor=white" alt="License: GPLv3">
   </a>
   <a href="https://github.com/tusar404/ArcMusic/stargazers">
     <img src="https://img.shields.io/github/stars/tusar404/ArcMusic?style=for-the-badge&label=Stars&labelColor=000000&color=FFD700&logo=github&logoColor=white" alt="GitHub Stars">
@@ -226,9 +226,8 @@ ArcMusic/
 
 ## 🐛 Bug Reports & Features
 
-Found a bug? Have a feature request?
+Facing issue in any feature? or Have a feature request?
 
-- **Use `/bug` command** in the bot to report directly
 - **Join our [Support Chat](https://t.me/ArcChatz)** for discussions
 - **Open an [Issue on GitHub](https://github.com/tusar404/ArcMusic/issues)**
 
