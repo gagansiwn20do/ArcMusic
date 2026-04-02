@@ -25,7 +25,7 @@ import (
 var (
 	autoLeaveMu      sync.Mutex
 	autoLeaveRunning bool
-	limit            = 50
+	limit            = 30
 )
 
 func init() {
