@@ -8,7 +8,6 @@
 package cookies
 
 import (
-	"embed"
 	"fmt"
 	"math/rand"
 	"os"
@@ -30,16 +29,10 @@ var (
 	client      = resty.New()
 )
 
-//go:embed *.txt
-var embeddedCookies embed.FS
-
 func init() {
 	gologging.Debug("🔹 Initializing cookies...")
 
-	if err := copyEmbeddedCookies(); err != nil {
-		gologging.Fatal("Failed to copy embedded cookies:", err)
-	}
-
+	// Download cookies from COOKIES_LINK env if provided
 	urls := strings.Fields(config.CookiesLink)
 	for _, url := range urls {
 		if err := downloadCookieFile(url); err != nil {
@@ -50,43 +43,21 @@ func init() {
 			)
 		}
 	}
-}
 
-func copyEmbeddedCookies() error {
-	entries, err := embeddedCookies.ReadDir(".")
-	if err != nil {
-		return err
+	if len(urls) == 0 {
+		gologging.Warn("No COOKIES_LINK configured - YouTube downloads may fail")
 	}
-
-	for _, e := range entries {
-
-		if e.IsDir() || e.Name() == "example.txt" {
-			continue
-		}
-
-		dst := filepath.Join(cookieDir, e.Name())
-
-		if _, err := os.Stat(dst); err == nil {
-			continue
-		}
-
-		data, err := embeddedCookies.ReadFile(e.Name())
-		if err != nil {
-			return err
-		}
-
-		if err := os.WriteFile(dst, data, 0o600); err != nil {
-			return err
-		}
-	}
-
-	return nil
 }
 
 func downloadCookieFile(url string) error {
 	id := filepath.Base(url)
 	rawURL := "https://batbin.me/raw/" + id
 	filePath := filepath.Join(cookieDir, id+".txt")
+
+	// Ensure cookie directory exists
+	if err := os.MkdirAll(cookieDir, 0o755); err != nil {
+		return fmt.Errorf("failed to create cookie dir: %w", err)
+	}
 
 	resp, err := client.R().
 		SetOutputFileName(filePath).
@@ -103,6 +74,7 @@ func downloadCookieFile(url string) error {
 		)
 	}
 
+	gologging.Info("Cookie file downloaded: " + filePath)
 	return nil
 }
 
