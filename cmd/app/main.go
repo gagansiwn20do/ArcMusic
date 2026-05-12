@@ -88,8 +88,14 @@ func main() {
 }
 
 func startHTTPServer() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("ArcMusic is alive!"))
+	})
+
 	go func() {
 		addr := "0.0.0.0:" + config.Port
+		gologging.Info("HTTP server started on " + addr)
 
 		if err := http.ListenAndServe(addr, nil); err != nil {
 			gologging.Error("HTTP server error: " + err.Error())
